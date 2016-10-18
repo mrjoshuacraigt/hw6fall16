@@ -39,7 +39,10 @@ class Movie::InvalidKeyError < StandardError ; end
         movieRating = 'NR'
       end
     end
-    Movie.create(title: movie["original_title"], rating: movieRating, release_date: movie["release_date"])
+    
+    #hash = {:title => movie["original_title"], :release_date => movie["release_date"], :rating => movieRating}
+    #Movie.create!(hash)
+    Movie.create!(title: movie["original_title"], rating: movieRating, release_date: movie["release_date"])
   end
     
 
