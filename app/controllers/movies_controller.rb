@@ -64,7 +64,7 @@ class MoviesController < ApplicationController
   end
   
   def search_tmdb
-    
+    @search_terms = params[:search_terms]
     @searchResults = []
     if params[:search_terms].blank?
       flash[:notice] = "Search field cannot be blank"

@@ -1,5 +1,5 @@
 -#  This file is app/views/movies/search_tmdb.html.haml
-%h1 Search Results:
+%h1 The following movies containing '#{@search_terms}' were found in TMDb
 
 =form_tag 'add_tmdb', :method => :post, :id => 'add_form' do
 
@@ -16,10 +16,10 @@
           %td= movie[:title] 
           %td= movie[:rating]
           %td= movie[:release_date]
-          %td=check_box_tag "tmdb_movies[#{movie[:tmdb_id]}]"
+          %td=check_box_tag "tmdb_movies[#{movie[:tmdb_id]}]", nil, nil, :id => "checkbox_#{movie[:tmdb_id]}"
           
           
-  = submit_tag 'Add Selected Movies'
+  = submit_tag 'Add Selected Movies', :id =>"search_button"
       
       
   
