@@ -31,6 +31,8 @@ class MoviesController < ApplicationController
       redirect_to :sort => sort, :ratings => @selected_ratings and return
     end
     @movies = Movie.where(rating: @selected_ratings.keys).order(ordering)
+    
+    
   end
 
   def new
@@ -62,7 +64,30 @@ class MoviesController < ApplicationController
   end
   
   def search_tmdb
-    @movies=Movie.find_in_tmdb(params[:search_terms])
+    
+    @searchResults = []
+    if params[:search_terms].blank?
+      flash[:notice] = "Search field cannot be blank"
+      redirect_to movies_path
+    else
+      @movies = Movie.find_in_tmdb(params[:search_terms])
+      if @movies.blank?
+        flash[:notice] = "#{params[:search_terms]} couldn't be found"
+        redirect_to movies_path
+      end
+    end
+    
+  end
+  
+  
+  def add_tmdb
+    if params[:tmdb_movies].blank?
+      flash[:notice] = "No movies selected"
+    else
+      params[:tmdb_movies].keys.each {|movie| puts Movie.create_tmdb(movie)}
+      flash[:notice] = "Movies successfully added to Rotten Potatoes"
+    end
+    redirect_to movies_path
   end
 
 end
